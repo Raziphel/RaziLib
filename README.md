@@ -61,5 +61,5 @@ which prevents unrelated mods from sharing runtime state accidentally.
 
 ## Testing
 
-Run `./tests/run.sh` for the pure-Lua suite. Consumer mods should additionally
+Run `lua tests/run.lua` for the pure-Lua suite. Consumer mods should additionally
 run Factorio with `--dump-data` to validate actual prototypes and dependencies.
