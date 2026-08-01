@@ -1,0 +1,9 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 01-08-2026
+  Features:
+    - Initial RAZI Library release.
+    - Safe instance-based prototype, recipe, technology, item, entity, and module wrappers.
+    - Ingredient, result, unlock, prerequisite, icon, settings, collection, and locale helpers.
+    - Runtime event aggregation, persistent namespaces, and safe remote-interface calls.
+    - Reusable validation assertions and a standalone Lua test suite.

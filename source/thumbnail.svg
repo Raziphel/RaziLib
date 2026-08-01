@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144">
+  <defs>
+    <radialGradient id="void" cx="50%" cy="44%" r="62%">
+      <stop offset="0" stop-color="#28102f"/><stop offset=".58" stop-color="#100b16"/><stop offset="1" stop-color="#030406"/>
+    </radialGradient>
+    <linearGradient id="blood" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ff604e"/><stop offset=".45" stop-color="#a70f2c"/><stop offset="1" stop-color="#4c061d"/>
+    </linearGradient>
+    <linearGradient id="arcane" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#8f2cff"/><stop offset=".5" stop-color="#e28aff"/><stop offset="1" stop-color="#5c19a8"/>
+    </linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+  <circle cx="72" cy="74" r="64" fill="#000" opacity=".72"/>
+  <circle cx="72" cy="70" r="61" fill="url(#void)" stroke="#32143d" stroke-width="4"/>
+  <circle cx="72" cy="70" r="52" fill="none" stroke="#b21d38" stroke-width="2"/>
+  <circle cx="72" cy="70" r="45" fill="none" stroke="#60237a" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <path d="M72 20L83 52L117 52L90 72L100 105L72 85L44 105L54 72L27 52L61 52Z" fill="none" stroke="#7b1531" stroke-width="8" stroke-linejoin="round" opacity=".75" filter="url(#glow)"/>
+  <path d="M72 20L83 52L117 52L90 72L100 105L72 85L44 105L54 72L27 52L61 52Z" fill="none" stroke="url(#blood)" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M72 33L81 58L107 58L86 74L94 98L72 83L50 98L58 74L37 58L63 58Z" fill="#0a070d" stroke="#efa5ff" stroke-width="1.5" opacity=".9"/>
+  <path d="M72 45L86 70L72 94L58 70Z" fill="none" stroke="url(#arcane)" stroke-width="4"/>
+  <path d="M61 70H83M72 49V91" stroke="#d883f2" stroke-width="2"/>
+  <circle cx="72" cy="70" r="9" fill="#16091d" stroke="#ff4d61" stroke-width="3"/>
+  <path d="M67 70Q72 64 77 70Q72 77 67 70Z" fill="#ffb0c4"/>
+  <circle cx="72" cy="70" r="2.5" fill="#200008"/>
+  <g fill="#d25bdf">
+    <circle cx="72" cy="13" r="2"/><circle cx="126" cy="52" r="2"/><circle cx="106" cy="116" r="2"/>
+    <circle cx="38" cy="116" r="2"/><circle cx="18" cy="52" r="2"/>
+  </g>
+</svg>

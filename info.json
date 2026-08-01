@@ -1,0 +1,11 @@
+{
+  "name": "razi_lib",
+  "version": "1.0.0",
+  "title": "RAZI Library",
+  "author": "Raziphel",
+  "factorio_version": "2.0",
+  "description": "Reusable Architecture & Zero-friction Infrastructure: Raziphel's passive shared foundation for Factorio 2.0 mods, with safe prototype editing, icon composition, validation, settings helpers, and runtime orchestration.",
+  "dependencies": [
+    "base >= 2.0.0"
+  ]
+}

@@ -1,0 +1,14 @@
+return {
+  Core = require("__razi_lib__/lib/core"),
+  Collections = require("__razi_lib__/lib/collections"),
+  Prototype = require("__razi_lib__/lib/prototype"),
+  Recipe = require("__razi_lib__/lib/recipe"),
+  Technology = require("__razi_lib__/lib/technology"),
+  Item = require("__razi_lib__/lib/item"),
+  Entity = require("__razi_lib__/lib/entity"),
+  Module = require("__razi_lib__/lib/module"),
+  Icons = require("__razi_lib__/lib/icons"),
+  Settings = require("__razi_lib__/lib/settings"),
+  Locale = require("__razi_lib__/lib/locale"),
+  Validation = require("__razi_lib__/lib/validation"),
+}

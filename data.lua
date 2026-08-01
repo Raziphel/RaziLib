@@ -1,0 +1,2 @@
+-- RAZI Library is intentionally passive. Consumer mods require only the modules
+-- they need, so installing the library does not mutate the base game by itself.
