@@ -26,11 +26,13 @@ Wrappers proxy ordinary prototype fields, so `Recipe.get("x").ingredients` works
 - `get`, `optional`, `clone`
 - `set_ingredients`, `set_results`, `add_ingredient`, `upsert_ingredient`
 - `remove_ingredient`, `replace_ingredient`, `add_result`, `remove_result`
-- `set_energy`, `set_category`, `set_subgroup`, `set_modules`
+- `set_energy`, `set_categories`, `set_category`, `add_category`, `set_subgroup`, `set_modules`
 - `enable`, `disable`, `set_conditions`, `set_recycling`, `set_main_product`
+- `set_quality_selectable`, `set_ingredient_sorting`
 - `unlock_with`, `remove_unlocks`, `each_variant`
+- 2.1 migration helpers: `categories_of`, `primary_category`, `normalize_2_1`, `normalize_all_2_1`
 
-Ingredient setters apply to normal and expensive variants when they exist.
+Ingredient and category setters apply to normal and expensive variants when they exist. Product normalization migrates legacy probability and freshness fields to Factorio 2.1's product-level representation.
 
 ### `lib/technology`
 
@@ -44,7 +46,8 @@ Built-in science codes: `R G B M P Y W V F A C S`.
 ### `lib/item`, `lib/entity`, `lib/module`
 
 Typed convenience wrappers for common stack, placement, crafting, energy, module,
-surface-condition, effect, category, and tier changes.
+surface-condition, effect, category, and tier changes. The item and module helpers
+also expose Factorio 2.1 spoil-quality policies and per-effect quality multipliers.
 
 ### `lib/icons`
 

@@ -7,3 +7,4 @@ Date: 01-08-2026
     - Ingredient, result, unlock, prerequisite, icon, settings, collection, and locale helpers.
     - Runtime event aggregation, persistent namespaces, and safe remote-interface calls.
     - Reusable validation assertions and a standalone Lua test suite.
+    - Native Factorio 2.1 multi-category recipes, product probabilities, quality controls, and migration helpers.

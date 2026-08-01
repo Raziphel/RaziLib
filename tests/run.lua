@@ -57,6 +57,20 @@ test("recipe edits normalize legacy results", function()
   assert(data.raw.recipe.alpha.results[2].name == "plate")
 end)
 
+test("Factorio 2.1 recipe normalization is lossless", function()
+  data.raw.recipe.beta.category = "chemistry"
+  data.raw.recipe.beta.additional_categories = { "cryogenics" }
+  data.raw.recipe.beta.results = {
+    { type = "item", name = "plate", amount = 1, probability = 0.25 },
+  }
+  Recipe.normalize_2_1(data.raw.recipe.beta)
+  assert(data.raw.recipe.beta.category == nil)
+  assert(data.raw.recipe.beta.categories[1] == "chemistry")
+  assert(data.raw.recipe.beta.categories[2] == "cryogenics")
+  assert(data.raw.recipe.beta.results[1].probability == nil)
+  assert(data.raw.recipe.beta.results[1].independent_probability == 0.25)
+end)
+
 test("technology edits are idempotent", function()
   Technology.get("automation")
     :add_prerequisite("logistics")

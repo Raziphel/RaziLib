@@ -25,6 +25,42 @@ local function variants(recipe)
   return found
 end
 
+local function category_list(value)
+  if type(value) == "string" then return { value } end
+  return Core.deepcopy(value or { "crafting" })
+end
+
+local function append_unique(list, value)
+  for _, current in ipairs(list) do
+    if current == value then return end
+  end
+  list[#list + 1] = value
+end
+
+local function normalize_product_list(results, freshness_source)
+  for _, result in pairs(results or {}) do
+    if result.probability ~= nil and result.independent_probability == nil then
+      result.independent_probability = result.probability
+    end
+    result.probability = nil
+    if freshness_source and freshness_source.result_is_always_fresh ~= nil and result.always_fresh == nil then
+      result.always_fresh = freshness_source.result_is_always_fresh
+    end
+    if freshness_source and freshness_source.reset_freshness_on_craft ~= nil and result.reset_freshness_on_craft == nil then
+      result.reset_freshness_on_craft = freshness_source.reset_freshness_on_craft
+    end
+  end
+  return results
+end
+
+local function normalize_products(recipe)
+  for _, variant in ipairs(variants(recipe)) do
+    normalize_product_list(variant.results, variant)
+    variant.result_is_always_fresh = nil
+    variant.reset_freshness_on_craft = nil
+  end
+end
+
 local function apply_variants(self, callback)
   for _, variant in ipairs(variants(self._prototype)) do callback(variant) end
   return self
@@ -54,6 +90,39 @@ function Recipe.clone(self_or_from, from_or_into, maybe_into)
   local into = maybe_into or from_or_into
   Prototype.clone("recipe", from, into)
   return Recipe.get(into)
+end
+
+function Recipe.categories_of(recipe)
+  local categories = category_list(recipe.categories or recipe.category)
+  for _, category in ipairs(recipe.additional_categories or {}) do append_unique(categories, category) end
+  return categories
+end
+
+function Recipe.primary_category(recipe)
+  return Recipe.categories_of(recipe)[1] or "crafting"
+end
+
+function Recipe.normalize_2_1(recipe)
+  recipe.categories = Recipe.categories_of(recipe)
+  recipe.category = nil
+  recipe.additional_categories = nil
+  normalize_products(recipe)
+  return recipe
+end
+
+function Recipe.normalize_product_list_2_1(results)
+  return normalize_product_list(results)
+end
+
+function Recipe.normalize_all_2_1()
+  for _, recipe in pairs(data.raw.recipe or {}) do Recipe.normalize_2_1(recipe) end
+  for _, prototypes in pairs(data.raw or {}) do
+    for _, prototype in pairs(prototypes) do
+      if prototype.minable then normalize_product_list(prototype.minable.results) end
+      normalize_product_list(prototype.loot)
+    end
+  end
+  return Recipe
 end
 
 Recipe.cloneInto = Recipe.clone
@@ -153,8 +222,24 @@ function methods:set_energy(seconds)
   return apply_variants(self, function(variant) variant.energy_required = seconds end)
 end
 
-function methods:set_category(category)
-  return apply_variants(self, function(variant) variant.category = category end)
+function methods:set_categories(categories)
+  return apply_variants(self, function(variant)
+    variant.categories = category_list(categories)
+    variant.category = nil
+    variant.additional_categories = nil
+  end)
+end
+
+
+function methods:set_category(category) return self:set_categories(category) end
+
+function methods:add_category(category)
+  return apply_variants(self, function(variant)
+    variant.categories = Recipe.categories_of(variant)
+    append_unique(variant.categories, category)
+    variant.category = nil
+    variant.additional_categories = nil
+  end)
 end
 
 function methods:set_subgroup(subgroup, order)
@@ -197,6 +282,16 @@ function methods:set_main_product(name)
   return self
 end
 
+function methods:set_quality_selectable(enabled)
+  self._prototype.can_set_quality = enabled ~= false
+  return self
+end
+
+function methods:set_ingredient_sorting(enabled)
+  self._prototype.sort_item_ingredients = enabled ~= false
+  return self
+end
+
 function methods:unlock_with(technology_name)
   local technology = data.raw.technology and data.raw.technology[technology_name]
   assert(technology, "Technology '" .. technology_name .. "' not found")
@@ -226,6 +321,7 @@ methods.setIngredients = methods.set_ingredients
 methods.setProducts = methods.set_results
 methods.setEnergy = methods.set_energy
 methods.setCategory = methods.set_category
+methods.setCategories = methods.set_categories
 methods.setModules = methods.set_modules
 methods.setConditions = methods.set_conditions
 methods.setRecycle = methods.set_recycling

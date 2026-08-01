@@ -22,6 +22,14 @@ Module.cloneInto = Module.clone
 function methods:set_effect(effect) self._prototype.effect = Core.deepcopy(effect); return self end
 function methods:set_category(category) self._prototype.category = category; return self end
 function methods:set_tier(tier) self._prototype.tier = tier; return self end
+
+function methods:set_quality_multipliers(multipliers)
+  for _, effect in ipairs({ "consumption", "speed", "productivity", "pollution", "quality" }) do
+    local value = multipliers and multipliers[effect]
+    if value ~= nil then self._prototype[effect .. "_quality_multiplier"] = value end
+  end
+  return self
+end
 methods.setEffect = methods.set_effect
 methods.setIcon = function(self, path, size) return self:set_icon(path, size) end
 

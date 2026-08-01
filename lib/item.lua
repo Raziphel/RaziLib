@@ -34,5 +34,11 @@ function methods:set_subgroup(subgroup, order)
   return self
 end
 function methods:set_place_result(entity_name) self._prototype.place_result = entity_name; return self end
+function methods:set_spoil_quality(minimum, maximum, change)
+  self._prototype.spoil_quality_min = minimum
+  self._prototype.spoil_quality_max = maximum
+  self._prototype.spoil_quality_change = change
+  return self
+end
 
 return Item

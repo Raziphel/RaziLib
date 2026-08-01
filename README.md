@@ -2,7 +2,7 @@
 
 **RAZI** stands for **Reusable Architecture & Zero-friction Infrastructure**.
 
-RAZI Library (`razi_lib`) is Raziphel's shared Factorio 2.0 foundation. It
+RAZI Library (`razi_lib`) is Raziphel's shared Factorio 2.1 foundation. It
 provides opt-in helpers and makes no gameplay changes by itself.
 
 ## Design promises
