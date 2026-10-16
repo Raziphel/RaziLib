@@ -100,6 +100,20 @@ test("technology edits are idempotent", function()
   assert(Technology.has_dependents("logistics"))
 end)
 
+test("technology pack upgrades keep the ingredient format", function()
+  data.raw.technology.logistics.unit.ingredients = {
+    { "automation-science-pack", 1 },
+    { name = "logistic-science-pack", amount = 1 },
+  }
+  Technology.get("logistics")
+    :add_pack("automation-science-pack", 3)
+    :add_pack("logistic-science-pack", 2)
+    :add_pack("automation-science-pack", 2)
+  local packs = data.raw.technology.logistics.unit.ingredients
+  assert(packs[1][1] == "automation-science-pack" and packs[1][2] == 3 and packs[1].amount == nil)
+  assert(packs[2].name == "logistic-science-pack" and packs[2].amount == 2 and packs[2][2] == nil)
+end)
+
 test("recipe inspection covers variants", function()
   data.raw.recipe.beta.normal = { ingredients = { { "plate", 2 } } }
   assert(Recipe.exists("beta"))
@@ -178,7 +192,7 @@ end)
 
 test("recipe read-only product inspection includes variants", function()
   assert(Recipe.produces("alpha", "gear"))
-  assert(Recipe.produces(data.raw.recipe.beta, "plate") == false)
+  assert(Recipe.produces(data.raw.recipe.beta, "gear") == false)
   assert(Recipe.produces({normal={results={{"rare-item",2}}}}, "rare-item"))
   assert(not Recipe.produces(nil, "rare-item"))
 end)
