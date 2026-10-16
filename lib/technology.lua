@@ -108,8 +108,12 @@ function methods:add_pack(name, amount)
   local packs = unit(self).ingredients
   for _, pack in pairs(packs) do
     if (pack.name or pack[1]) == name then
-      pack.amount = math.max(pack.amount or pack[2] or 0, amount or 1)
-      pack[2] = nil
+      local wanted = math.max(pack.amount or pack[2] or 0, amount or 1)
+      if pack.name then
+        pack.amount = wanted
+      else
+        pack[2] = wanted
+      end
       return self
     end
   end
