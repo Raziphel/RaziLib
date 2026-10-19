@@ -74,31 +74,6 @@ registry
 RAZI does not install handlers globally. Each consumer owns its registry,
 which prevents unrelated mods from sharing runtime state accidentally.
 
-
-## Shared startup-settings hosting (1.3.0, opt-in)
-
-Factorio displays settings by **owning mod** first. RAZI Library can host the
-**startup** settings of specifically enrolled consumers under one native group.
-It cannot force that group to the very top of Factorio's mod list.
-
-The initial provider is Razi Protocol. It exports its normal setting prototypes
-without defining them when RAZI Library requests them. RAZI Library registers
-only `startup` prototypes; Razi Protocol continues owning its
-`runtime-global` and `runtime-per-user` settings. All original setting IDs,
-defaults, allowed values, orders and locale keys are preserved.
-
-**Adding another opt-in consumer:** add its internal mod ID and export-module
-path to `settings/registry.lua`. Its exported module should return an array of
-ordinary setting prototypes when `__razi_lib_settings_export` is set, and
-must have a normal local-registration fallback when no hosted marker exists.
-RAZI Library sets `__razi_lib_settings_hosted[mod-id]` only after successfully
-registering startup prototypes. Never move runtime settings whose values the
-consumer must write. Registration is explicit, not an indiscriminate scan of
-unrelated installed mods. An unavailable provider is skipped safely.
-
-The host feature requires RAZI Library 1.3.0 or later, and should be validated
-in Factorio's actual mod-settings screen before relying on GUI placement.
-
 ## Testing
 
 Run `lua tests/run.lua` for the pure-Lua suite. Consumer mods should additionally
