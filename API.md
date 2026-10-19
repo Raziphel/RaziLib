@@ -82,13 +82,6 @@ Build deterministic layered icons with `layer`, `single`, `compose`, `badge`,
 Read settings safely with `value` and `enabled`. Build prototypes with `bool`,
 `string`, `int`, and `double`.
 
-### `settings/registry` (settings stage, 1.3.0)
-
-`register(installed?, loader?, emit?)` collects **startup-only** prototypes
-from explicitly enrolled consumer mods. Its dependency-injection arguments are
-intended for tests. Consumers keep runtime settings and original setting IDs.
-See [README](README.md) for the opt-in contract and native GUI limitation.
-
 ### `lib/locale`
 
 Construct localized keys, concatenations, rich-text icons, and colored values.
