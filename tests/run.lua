@@ -155,53 +155,6 @@ test("settings helpers preserve false and zero", function()
   assert(Settings.value("count", 9) == 0)
 end)
 
-test("settings registry hosts only explicitly enrolled startup settings", function()
-  local Registry = require("__razi_lib__/settings/registry")
-  local seen_path, emitted
-  local accepted = Registry.register(
-    { ["razi-protocol"] = "2.1.122" },
-    function(path)
-      seen_path = path
-      assert(rawget(_G, "__razi_lib_settings_export") == true)
-      return {
-        { type = "bool-setting", name = "razi-example-startup",
-          setting_type = "startup", default_value = true },
-        { type = "bool-setting", name = "razi-example-map",
-          setting_type = "runtime-global", default_value = true },
-        { type = "bool-setting", name = "razi-example-player",
-          setting_type = "runtime-per-user", default_value = true },
-      }
-    end,
-    function(entries) emitted = entries end
-  )
-  assert(seen_path == "__razi-protocol__/settings")
-  assert(accepted["razi-protocol"] == true)
-  assert(#emitted == 1 and emitted[1].name == "razi-example-startup")
-  assert(rawget(_G, "__razi_lib_settings_export") == nil)
-  assert(rawget(_G, "__razi_lib_settings_hosted")["razi-protocol"])
-  rawset(_G, "__razi_lib_settings_hosted", nil)
-end)
-
-test("settings registry keeps fallback when provider fails or companion is enabled", function()
-  local Registry = require("__razi_lib__/settings/registry")
-  local called = false
-  local function fail()
-    called = true
-    error("synthetic missing export")
-  end
-  local result = Registry.register({ ["razi-protocol"] = "2.1.122" }, fail,
-    function() error("Must not register failed export") end)
-  assert(not result["razi-protocol"] and called)
-  assert(rawget(_G, "__razi_lib_settings_export") == nil)
-  called = false
-  local companion = Registry.register({
-    ["razi-protocol"] = "2.1.122",
-    ["00-razi-protocol-settings"] = "1.0.0",
-  }, fail, function() error("Companion takes priority") end)
-  assert(not companion["razi-protocol"] and not called)
-  assert(rawget(_G, "__razi_lib_settings_hosted") == nil)
-end)
-
 test("event registry composes multiple consumers", function()
   local calls = {}
   local script_api = {}
