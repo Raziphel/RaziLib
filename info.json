@@ -1,10 +1,10 @@
 {
   "name": "razi_lib",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "title": "RAZI Library",
   "author": "Raziphel",
   "factorio_version": "2.1",
-  "description": "Reusable Architecture & Zero-friction Infrastructure — Raziphel's shared foundation for Factorio 2.1 mods. RAZI Library provides dependable prototype editing, recipe and technology helpers, layered icons, settings utilities, validation tools, and runtime event orchestration in one lightweight dependency.",
+  "description": "Reusable Architecture & Zero-friction Infrastructure — Raziphel's shared foundation for Factorio 2.1 mods. RAZI Library provides dependable prototype editing, recipe and technology helpers, layered icons, settings utilities, validation tools, and runtime event orchestration in one lightweight dependency. Includes opt-in shared startup-settings hosting for Razi-compatible mods.",
   "dependencies": [
     "base >= 2.1.0"
   ]
