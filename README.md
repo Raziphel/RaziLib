@@ -18,7 +18,7 @@ provides opt-in helpers and makes no gameplay changes by itself.
 ## Dependency
 
 ```json
-"dependencies": ["razi_lib >= 1.2.0"]
+"dependencies": ["razi_lib >= 1.3.0"]
 ```
 
 ## Quick start
@@ -73,6 +73,13 @@ registry
 
 RAZI does not install handlers globally. Each consumer owns its registry,
 which prevents unrelated mods from sharing runtime state accidentally.
+
+## What's new in 1.3.0
+
+- Technology science-pack count upgrades now preserve both Factorio ingredient forms.
+- Regression tests cover positional and named pack amounts and repeated upgrades.
+- The Razi's Realm dragon mascot replaces the old mod thumbnail.
+- Settings handling stays passive; consumer mods continue to own their settings.
 
 ## Testing
 

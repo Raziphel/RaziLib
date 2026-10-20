@@ -54,6 +54,8 @@ Ingredient and category setters apply to normal and expensive variants when they
 
 Built-in science codes: `R G B M P Y W V F A C S`.
 
+Since 1.3.0, `Technology:add_pack(name, amount)` preserves an existing ingredient's representation, whether `{name, count}` or `{name = name, amount = count}`, when raising the count.
+
 ### `lib/science`
 
 Science-pack discovery and composition with `exists`, `add_pack`, `add_existing`,
