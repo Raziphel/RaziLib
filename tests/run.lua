@@ -1,3 +1,6 @@
+-- The fixtures mock data.raw and mutate it with legacy recipe fields and positional ingredients that the Factorio 2.1
+-- prototype annotations do not describe, so these checks are off for this file only.
+---@diagnostic disable: need-check-nil, undefined-field, inject-field, assign-type-mismatch
 local native_require = require
 
 function require(name)

@@ -8,6 +8,7 @@ end
 function Events.new()
   local registry = {
     events = {}, nth_tick = {}, init = {}, load = {}, configuration_changed = {},
+    ---@type boolean
     installed = false,
   }
 

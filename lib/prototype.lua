@@ -93,6 +93,7 @@ function methods:hide()
 end
 
 function methods:remove()
+  ---@diagnostic disable-next-line: undefined-field -- _type is a runtime prototype type name
   data.raw[self._type][self._name] = nil
   return nil
 end
