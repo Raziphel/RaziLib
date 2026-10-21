@@ -32,6 +32,7 @@ Date: 15. 10. 2026
     - Document public APIs and test missing nodes, circular graphs, long research chains, and duplicate effects.
     - No gameplay changes, global event handlers or dependency on Space Age.
 
+---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 13-10-2026
   Features:

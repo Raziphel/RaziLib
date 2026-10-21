@@ -1,6 +1,7 @@
 local Core = require("__razi_lib__/lib/core")
 local Settings = {}
 
+---@return any
 local function setting_table(setting_type)
   if setting_type == "startup" then return settings and settings.startup end
   if setting_type == "runtime-global" then return settings and settings.global end

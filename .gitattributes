@@ -1,0 +1,8 @@
+# line endings stay as they are (no text=auto); binary files are never converted
+*.png binary
+
+# files that should not get included in a release zip (the release packs the mod with git archive)
+.github export-ignore
+.gitattributes export-ignore
+# check settings, not part of the mod
+.luacheckrc export-ignore

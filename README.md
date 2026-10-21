@@ -78,3 +78,12 @@ which prevents unrelated mods from sharing runtime state accidentally.
 
 Run `lua tests/run.lua` for the pure-Lua suite. Consumer mods should additionally
 run Factorio with `--dump-data` to validate actual prototypes and dependencies.
+
+## Releases
+
+Releases are made by CI from `main` ([.github/workflows/release.yml](.github/workflows/release.yml), through [factorio-mod-tools](https://github.com/GreenTech-Solutions/factorio-mod-tools)): a push to `main` with releasable commits since the last tag bumps `info.json`, writes the `changelog.txt` section, uploads the zip to the mod portal and makes a GitHub release. Every push and pull request runs the check (Lua 5.2 syntax, luacheck, emmylua against the Factorio API, the `changelog.txt` format); run it locally with `factorio-mod-check .`.
+
+- Commit messages, and pull request titles when squash merging, are [conventional commits](https://www.conventionalcommits.org/); the subject becomes the changelog line as it is written. `feat:` is a minor release; `fix:`, `balance:`, `compat:`, `gui:`, `graphics:`, `sound:`, `locale:`, `perf:` and `control:` are patch releases; a breaking change is a major one. `ci:`, `docs:`, `chore:`, `test:` and `refactor:` release nothing.
+- Do not edit the version in `info.json` or `changelog.txt` by hand, and do not upload zips to the portal: CI does both.
+- The release zip is made with `git archive`; files that stay out of it are marked `export-ignore` in [.gitattributes](.gitattributes).
+- The upload uses the `FACTORIO_TOKEN` repository secret, a mod portal API key with the upload permission.
