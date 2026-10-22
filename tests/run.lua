@@ -131,6 +131,7 @@ test("validation reads legacy and difficulty recipe variants without changes",fu
     normal={ingredients={{name="copper-plate",amount=2}},results={{name="plate",amount=3}}},
     expensive={ingredients={{"stone",4}},result="rare-metal",result_count=5},
   }
+  local original = table.deepcopy(recipe)
   data.raw.recipe["validation-fixture"]=recipe
   assert(Validation.ingredient("validation-fixture","iron-plate").amount==1)
   assert(Validation.ingredient("validation-fixture","copper-plate").amount==2)
@@ -139,7 +140,9 @@ test("validation reads legacy and difficulty recipe variants without changes",fu
   assert(Validation.result("validation-fixture","plate").amount==3)
   assert(Validation.result("validation-fixture","rare-metal").amount==5)
   assert(not pcall(Validation.result,"validation-fixture","missing"))
-  assert(recipe.result=="gear" and recipe.expensive.result=="rare-metal")
+  if recipe.result ~= original.result or recipe.expensive.result ~= original.expensive.result then
+    error("validation mutated the legacy recipe results")
+  end
   data.raw.recipe["validation-fixture"]=nil
 end)
 
