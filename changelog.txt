@@ -9,6 +9,7 @@ Date: 22. 10. 2026
   Packaging:
     - Exclude development examples, tests, source art and repository files from mod ZIPs.
     - Reject prohibited executable/script extensions during CI archive validation.
+    - Hold automatic Mod Portal publishing behind an explicit enable switch until its API token is repaired.
   Compatibility:
     - Preserve the shared RaziLib API and passive behavior for existing consumer mods.
 
