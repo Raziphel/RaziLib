@@ -53,6 +53,7 @@ local Science = require("__razi_lib__/lib/science")
 local SpaceConnection = require("__razi_lib__/lib/space_connection")
 local Graph = require("__razi_lib__/lib/technology_graph")
 local Collections = require("__razi_lib__/lib/collections")
+local Validation = require("__razi_lib__/lib/validation")
 
 test("wrappers retain independent targets", function()
   local alpha = Recipe.get("alpha")
@@ -121,6 +122,33 @@ test("recipe inspection covers variants", function()
   data.raw.recipe.beta.normal = { ingredients = { { "plate", 2 } } }
   assert(Recipe.exists("beta"))
   assert(Recipe.get("beta"):has_ingredient("plate"))
+end)
+
+test("validation reads legacy and difficulty recipe variants without changes",function()
+  local recipe={
+    type="recipe",name="validation-fixture",result="gear",result_count=2,
+    ingredients={{name="iron-plate",amount=1}},
+    normal={ingredients={{name="copper-plate",amount=2}},results={{name="plate",amount=3}}},
+    expensive={ingredients={{"stone",4}},result="rare-metal",result_count=5},
+  }
+  data.raw.recipe["validation-fixture"]=recipe
+  assert(Validation.ingredient("validation-fixture","iron-plate").amount==1)
+  assert(Validation.ingredient("validation-fixture","copper-plate").amount==2)
+  assert(Validation.ingredient("validation-fixture","stone")[2]==4)
+  assert(Validation.result("validation-fixture","gear").amount==2)
+  assert(Validation.result("validation-fixture","plate").amount==3)
+  assert(Validation.result("validation-fixture","rare-metal").amount==5)
+  assert(not pcall(Validation.result,"validation-fixture","missing"))
+  assert(recipe.result=="gear" and recipe.expensive.result=="rare-metal")
+  data.raw.recipe["validation-fixture"]=nil
+end)
+
+test("validation rejects duplicate or unnamed entries with useful errors",function()
+  assert(Validation.no_duplicate_names({{name="a"},{name="b"}},"products"))
+  local ok,msg=pcall(Validation.no_duplicate_names,{{name="a"},{name="a"}},"products")
+  assert(not ok and msg:find("duplicate a",1,true))
+  ok,msg=pcall(Validation.no_duplicate_names,{{name="a"},{}}, "products")
+  assert(not ok and msg:find("without a name",1,true))
 end)
 
 test("science helpers compose available packs and labs", function()

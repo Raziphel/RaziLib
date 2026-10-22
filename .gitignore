@@ -1,0 +1,10 @@
+# Never track executable/script extensions rejected by Factorio Mod Portal.
+*.exe
+*.bat
+*.ps1
+*.sh
+*.py
+__pycache__/
+node_modules/
+dist/
+*.zip

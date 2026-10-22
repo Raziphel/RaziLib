@@ -1,4 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.2
+Date: 22. 10. 2026
+  Graphics:
+    - Updated the RaziLib thumbnail to match the new Raziel dragon mascot branding.
+  Bugfixes:
+    - Validation helpers now inspect legacy and normal/expensive recipe variants without modifying them.
+    - Report a useful error when a validated entry is missing its name.
+  Packaging:
+    - Exclude development examples, tests, source art and repository files from mod ZIPs.
+    - Reject prohibited executable/script extensions during CI archive validation.
+  Compatibility:
+    - Preserve the shared RaziLib API and passive behavior for existing consumer mods.
+
+---------------------------------------------------------------------------------------------------
 Version: 1.3.1
 Date: 21. 10. 2026
   Stability:

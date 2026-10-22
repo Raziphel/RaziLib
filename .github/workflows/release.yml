@@ -24,6 +24,28 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Verify Mod Portal archive
+        run: |
+          python3 - <<'PYCODE'
+          import io, json, subprocess, zipfile
+          from pathlib import PurePosixPath
+          metadata = json.load(open("info.json", encoding="utf-8"))
+          folder = f"{metadata['name']}_{metadata['version']}"
+          archive = subprocess.check_output(["git", "archive", "--format=zip",
+                                             f"--prefix={folder}/", "HEAD"])
+          with zipfile.ZipFile(io.BytesIO(archive)) as package:
+              files = [name for name in package.namelist() if not name.endswith("/")]
+              assert package.testzip() is None
+              assert all(name.startswith(folder + "/") for name in files)
+              assert not any(PurePosixPath(name).suffix.lower() in
+                             {".exe", ".bat", ".ps1", ".sh", ".py"} for name in files)
+              assert not any(name.split("/")[1] in
+                             {"tests", "examples", "source", ".github"} for name in files)
+              assert folder + "/info.json" in files
+              assert folder + "/thumbnail.png" in files
+              assert json.loads(package.read(folder + "/info.json"))["version"] == metadata["version"]
+          print(f"Portal-safe archive validated: {len(files)} mod files")
+          PYCODE
       - name: Check the mod
         uses: GreenTech-Solutions/factorio-mod-tools@ada84cd6aa8d7219c6d9ee47f5b701ce9b3f2247 # v1.0.0
 

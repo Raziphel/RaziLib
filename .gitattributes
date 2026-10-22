@@ -6,3 +6,10 @@
 .gitattributes export-ignore
 # check settings, not part of the mod
 .luacheckrc export-ignore
+.gitignore export-ignore
+AGENTS.md export-ignore
+API.md export-ignore
+MIGRATION.md export-ignore
+examples/ export-ignore
+source/ export-ignore
+tests/ export-ignore
