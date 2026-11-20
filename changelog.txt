@@ -1,10 +1,5 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.2
-Date: 2026-11-17
-  Locale:
-    - Russian name and description of the library
----------------------------------------------------------------------------------------------------
-Version: 1.3.2
 Date: 22. 10. 2026
   Graphics:
     - Updated the RaziLib thumbnail to match the new Raziel dragon mascot branding.
@@ -16,6 +11,7 @@ Date: 22. 10. 2026
     - Reject prohibited executable/script extensions during CI archive validation.
   Compatibility:
     - Preserve the shared RaziLib API and passive behavior for existing consumer mods.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.1
 Date: 21. 10. 2026
@@ -23,6 +19,7 @@ Date: 21. 10. 2026
     - Reverted experimental automatic settings ownership and settings-stage provider registration after in-game sorting problems.
     - Restored RaziLib's passive, opt-in settings utility behavior, keeping settings prototypes under each consumer mod's control.
     - Retained the 1.3.0 technology science-pack fix and public module API without introducing global settings changes.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.3.0
 Date: 21. 10. 2026
@@ -37,6 +34,7 @@ Date: 21. 10. 2026
   Compatibility:
     - Existing RaziLib APIs remain intact; no gameplay changes or mandatory Space Age dependency.
     - Settings utilities remain opt-in and do not automatically claim other mods' settings or change their order.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 15. 10. 2026
@@ -47,6 +45,7 @@ Date: 15. 10. 2026
     - Add stable ordered collection deduplication for lab and science input lists.
     - Document public APIs and test missing nodes, circular graphs, long research chains, and duplicate effects.
     - No gameplay changes, global event handlers or dependency on Space Age.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
 Date: 13-10-2026
@@ -55,6 +54,7 @@ Date: 13-10-2026
     - Added recipe inspection plus technology lookup, dependency, pack, prerequisite, and unlock queries.
   Changes:
     - Expanded the public module map and regression suite for Razi Protocol integration.
+
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 01-08-2026
