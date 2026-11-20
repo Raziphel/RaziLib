@@ -47,7 +47,7 @@ jobs:
           print(f"Portal-safe archive validated: {len(files)} mod files")
           PYCODE
       - name: Check the mod
-        uses: GreenTech-Solutions/factorio-mod-tools@ada84cd6aa8d7219c6d9ee47f5b701ce9b3f2247 # v1.0.0
+        uses: GreenTech-Solutions/factorio-mod-tools@fc3c45f575c6feb770f7a082ea47cc0367147ee9 # v1.3.0
 
   release:
     name: release
@@ -64,7 +64,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Release
-        uses: GreenTech-Solutions/factorio-mod-tools/release@ada84cd6aa8d7219c6d9ee47f5b701ce9b3f2247 # v1.0.0
+        uses: GreenTech-Solutions/factorio-mod-tools/release@fc3c45f575c6feb770f7a082ea47cc0367147ee9 # v1.3.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           factorio-token: ${{ secrets.FACTORIO_TOKEN }}
